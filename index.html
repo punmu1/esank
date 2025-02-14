@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>อาหารอีสานยอดฮิต</title>
+  <style>
+    body { 
+      font-family: 'Kanit', Arial, sans-serif; 
+      margin: 0; 
+    } /* ใช้ฟอนต์ Kanit */
+    
+    .navbar { 
+      background-color: #fff; 
+      padding: 10px 20px; 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+    }
+    
+    .navbar a { 
+      text-decoration: none; 
+      color: #333; 
+      margin: 0 15px; 
+      font-size: 16px;
+    }
+
+    .navbar a:hover { color: #ff6347; }
+    
+    /* โลโก้ E-san */
+    .logo {
+      font-family: 'Kanit', sans-serif; /* ใช้ฟอนต์ Kanit */
+      font-size: 24px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    .logo .e { color: #ff6347; } /* E สีส้ม */
+    .logo .san { color: #000; } /* san สีดำ */
+
+    .hero { 
+      text-align: center; 
+      background-image: url('https://img.wongnai.com/p/1920x0/2022/08/12/1a705c5c32ee40deb1e9064ca0d2fa9a.jpg'); 
+      background-size: cover; 
+      background-position: center; 
+      color: #ff6347; 
+      padding: 100px 20px; 
+      position: relative; 
+    }
+    
+    .hero::after { 
+      content: ""; 
+      position: absolute; 
+      top: 0; left: 0; right: 0; bottom: 0; 
+      background: rgba(0, 0, 0, 0.5); 
+      z-index: -1;
+    }
+
+    .hero h1, .hero p, .hero input {
+      position: relative; 
+      z-index: 1; 
+    }
+
+    /* เพิ่มกรอบสีขาวให้ข้อความ */
+    .hero h1, .hero p {
+      text-shadow: 
+        -1px -1px 0 #fff,  
+         1px -1px 0 #fff,
+        -1px  1px 0 #fff,
+         1px  1px 0 #fff;
+    }
+
+    .hero input { 
+      padding: 10px; 
+      font-size: 16px; 
+      width: 80%; 
+      max-width: 300px; 
+      border-radius: 5px; 
+      border: none; 
+      text-align: center;
+    }
+
+    .container { 
+      padding: 20px; 
+      display: flex; 
+      flex-wrap: wrap; 
+      justify-content: center; 
+      gap: 20px; 
+      max-width: 1200px; 
+      margin: auto;
+    }
+
+    .card { 
+      background-color: #fff; 
+      border-radius: 8px; 
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+      overflow: hidden; 
+      transition: transform 0.2s, box-shadow 0.2s; 
+      width: 250px; 
+      height: 350px; 
+    }
+
+    .card:hover { 
+      transform: translateY(-5px); 
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+    }
+
+    .card img { 
+      width: 100%; 
+      height: 150px; 
+      object-fit: cover; 
+    }
+
+    .card-content { 
+      padding: 15px; 
+      display: flex; 
+      flex-direction: column; 
+      justify-content: space-between;
+      height: 100px;
+    }
+
+    .card-title { font-size: 18px; font-weight: bold; margin: 0 0 10px; }
+    .card-category { font-size: 14px; color: #777; margin-bottom: 10px; }
+  </style>
+  <!-- เพิ่มลิงก์ไปยังฟอนต์ Kanit จาก Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div class="navbar">
+    <!-- โลโก้ E-san -->
+    <a href="index.html" class="logo">
+      <span class="e">E</span><span class="san">san</span>
+    </a>
+    <div>
+      <a href="C:\Users\admin\OneDrive\เดสก์ท็อป\esan\index.html">หน้าแรก</a>
+      <a href="#">หมวดหมู่</a>
+      <a href="#">ติดต่อเรา</a>
+    </div>
+  </div>
+
+  <div class="hero">
+    <h1>แนะนำอาหารอีสานยอดฮิต</h1>
+    <p>ค้นหาเมนูโปรดของคุณ</p>
+    <input id="searchInput" type="text" placeholder="ค้นหาเมนูอาหาร">
+  </div>
+
+  <div class="container" id="cardContainer"></div>
+
+  <script>
+    const foodNames = [
+      "ส้มตำไทย", "ลาบหมู", "ต้มแซ่บกระดูกอ่อน", "ไก่ย่าง", "ข้าวเหนียว", "หมูน้ำตก", "แกงเห็ด", "ป่นปลา", "ก้อยเนื้อ",
+      "แจ่วฮ้อน", "ตำปูปลาร้า", "ลาบเป็ด", "แกงอ่อม", "หมกปลาซิว", "ตำแตง", "หมูแดดเดียว", "ก้อยปลา", "ข้าวจี่", 
+      "หมกหน่อไม้", "หมกไข่ปลา", "ซุปหน่อไม้", "ขนมจีนน้ำยาป่า", "แหนมเนือง", "ไส้กรอกอีสาน", "แกงหน่อไม้", 
+      "ผัดหมี่โคราช", "แกงผักหวานไข่มดแดง", "ลาบปลาดุก", "ตำซั่ว", "น้ำตกเนื้อ", "กุ้งเต้น", "หมกเห็ด", 
+      "แกงฟักทอง", "แกงแคไก่", "หมูยอทอด", "หมกกบ", "หมูปิ้ง", "ตำข้าวโพด", "หมูทอดกระเทียม", "ไก่ทอดน้ำปลา", 
+      "ตำถั่ว", "ลาบเนื้อ", "เนื้อแดดเดียว", "ตำหอยแครง", "แกงเห็ดเผาะ", "ต้มปลาร้า", "ลาบไก่", 
+      "แกงขี้เหล็ก", "แกงหน่อไม้ใบย่านาง", "ป่นเห็ด"
+    ];
+
+    const foodData = [
+      { title: "ส้มตำไทย", image: "https://www.unileverfoodsolutions.co.th/dam/global-ufs/mcos/SEA/calcmenu/recipes/TH-recipes/salads/%E0%B8%AA%E0%B9%89%E0%B8%A1%E0%B8%95%E0%B8%B3%E0%B9%84%E0%B8%97%E0%B8%A2/%E0%B8%AA%E0%B9%89%E0%B8%A1%E0%B8%95%E0%B8%B3%E0%B9%84%E0%B8%97%E0%B8%A2_header.jpg" },
+      { title: "ลาบหมู", image: "https://www.ajinomoto.co.th/storage/photos/shares/Recipe/Menu/3-05lapmoosab/61a8ed79dee45.jpeg" },
+      { title: "ต้มแซ่บกระดูกอ่อน", image: "https://img.kapook.com/u/2023/wanwanat/2082317182.jpg" },
+      { title: "ไก่ย่าง", image: "https://siamallfood.com/wp-content/uploads/2014/11/Wichian-Grilled-Chicken-SiamAllFood.com_-1024x683.jpg" },
+      { title: "ข้าวเหนียว", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRv5-8XCgddgjqxcaIO-VAC7krjm5NMrhOHgQ&s" },
+      { title: "หมูน้ำตก", image: "https://img.kapook.com/u/wanwanat/Thai%20pork%20salad.jpg" },
+      { title: "แกงเห็ด", image: "https://www.ajinomoto.co.th/storage/photos/shares/Recipe/Menu/Lot4-19/61e96b224a567.jpeg" },
+      { title: "ป่นปลา", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTu3X_mWUtEjPznsVfV5_Zrwn9WtNJDwRBYQ&s" },
+      { title: "ก้อยเนื้อ", image: "https://api2.krua.co/wp-content/uploads/2020/09/RT0920_ImageBannerMobile_960x633_New.jpg" },
+      { title: "แจ่วฮ้อน", image: "https://www.thailand.aussiebeefandlamb.com/siteassets/esan-beef-hot-pot.jpg" },
+      { title: "ตำปูปลาร้า", image: "https://img-global.cpcdn.com/recipes/b48302d4bf74eb5a/400x400cq70/photo.jpg" },
+      { title: "ลาบเป็ด", image: "https://i.ytimg.com/vi/yyACDEunQG8/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBxxU9w_b0uxWKmrWv4bBZHNce6_A" },
+      { title: "แกงอ่อม", image: "https://food.mthai.com/app/uploads/2017/03/Chicken-and-mixed-vegetables.jpg" },
+      { title: "หมกปลาซิว", image: "https://i.ytimg.com/vi/BIZhB2tntpc/maxresdefault.jpg" },
+      { title: "ตำแตง", image: "https://img.wongnai.com/p/1920x0/2019/11/26/05f96ba59fa2407e9f28efb6c6d74e7a.jpg" },
+      { title: "หมูแดดเดียว", image: "https://www.f1solar.co/wp-content/uploads/2021/04/%E0%B8%AB%E0%B8%A1%E0%B8%B9%E0%B9%81%E0%B8%94%E0%B8%94%E0%B9%80%E0%B8%94%E0%B8%B5%E0%B8%A2%E0%B8%A7-2.jpg" },
+      { title: "ก้อยปลา", image: "https://i.ytimg.com/vi/QHqUgx7QrRk/sddefault.jpg" },
+      { title: "ข้าวจี่", image: "https://dessertsmate.com/wp-content/uploads/2023/09/131-%E0%B8%82%E0%B9%89%E0%B8%B2%E0%B8%A7%E0%B8%88%E0%B8%B5%E0%B9%88-%E0%B8%AA%E0%B8%B9%E0%B8%95%E0%B8%A3%E0%B8%82%E0%B9%89%E0%B8%B2%E0%B8%A7%E0%B9%80%E0%B8%AB%E0%B8%99%E0%B8%B5%E0%B8%A2%E0%B8%A7%E0%B8%99%E0%B8%B8%E0%B9%88%E0%B8%A1%E0%B8%99%E0%B8%B2%E0%B8%99-%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B9%81%E0%B8%AB%E0%B9%89%E0%B8%87-%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B9%81%E0%B8%82%E0%B9%87%E0%B8%87-1.jpg" },
+      { title: "หมกหน่อไม้", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwWFrEkmvkTdDfWmcUZWzWl8RNEgHs3jOGsQ&s" },
+      { title: "หมกไข่ปลา", image: "https://img.wongnai.com/p/400x0/2020/05/26/239214abb5984929b03ae26aec9d6f08.jpg" },
+      { title: "ซุปหน่อไม้", image: "https://i.ytimg.com/vi/x1iFAbXOSk0/maxresdefault.jpg" },
+      { title: "ขนมจีนน้ำยาป่า", image: "https://recipe.ajinomoto.co.th/_next/image?url=https%3A%2F%2Fwww.ajinomoto.co.th%2Fstorage%2Fphotos%2Fshares%2FRecipe%2FMenu%2F3-04kanomnamyapa%2F61a8ed0ec61e2.jpeg&w=3840&q=75" },
+      { title: "แหนมเนือง", image: "https://www.sgethai.com/wp-content/uploads/2022/07/Image04-16.webp" },
+      { title: "ไส้กรอกอีสาน", image: "https://cheewajit.com/app/uploads/2018/12/web-2.jpg" },
+      { title: "แกงหน่อไม้", image: "https://www.sgethai.com/wp-content/uploads/2022/09/8-25.jpg" },
+      { title: "ผัดหมี่โคราช", image: "https://s359.kapook.com/pagebuilder/e889e95b-5d6e-4b26-937b-6419c0897189.jpg" },
+      { title: "แกงผักหวานไข่มดแดง", image: "https://img.wongnai.com/p/1920x0/2017/10/04/f4d2d901befc492f9569d9e47d3aca14.jpg" },
+      { title: "ลาบปลาดุก", image: "https://img.wongnai.com/p/1920x0/2020/02/21/e63d0c83a2de4a7f87e6985c123fc861.jpg" },
+      { title: "ตำซั่ว", image: "https://img.kapook.com/u/2017/surauch/cooking/x1_4.jpg" },
+      { title: "น้ำตกเนื้อ", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGo3FAlZX54wODaR5QOKzI-9XKezcgGL7tJA&s" },
+      { title: "กุ้งเต้น", image: "https://img.wongnai.com/p/1920x0/2017/12/28/a00aad70f4384816be654ac94684d0ae.jpg" },
+      { title: "หมกเห็ด", image: "https://img.wongnai.com/p/1920x0/2018/01/26/85b667d3414240aba306b73271f726dd.jpg" },
+      { title: "แกงฟักทอง", image: "https://i.ytimg.com/vi/r_f1AA6Zfx8/maxresdefault.jpg" },
+      { title: "แกงแคไก่", image: "https://i.ytimg.com/vi/Jvf4KMuuoEQ/maxresdefault.jpg" },
+      { title: "หมูยอทอด", image: "https://www.sgethai.com/wp-content/uploads/2022/11/16-1.jpg" },
+      { title: "หมกกบ", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqhEw0akLwxsOzN7Mlsy8FqsFKwVw3Ue6mpA&s" },
+      { title: "หมูปิ้ง", image: "https://images.deliveryhero.io/image/fd-th/LH/ahbd-listing.jpg" },
+      { title: "ตำข้าวโพด", image: "https://s359.kapook.com/pagebuilder/e04f9577-4705-43dc-84d6-e3854d153ea9.jpg" },
+      { title: "หมูทอดกระเทียม", image: "https://www.unileverfoodsolutions.co.th/dam/global-ufs/mcos/SEA/calcmenu/recipes/TH-recipes/red-meats-&-red-meat-dishes/%E0%B8%AB%E0%B8%A1%E0%B8%B9%E0%B8%97%E0%B8%AD%E0%B8%94%E0%B8%81%E0%B8%A3%E0%B8%B0%E0%B9%80%E0%B8%97%E0%B8%B5%E0%B8%A2%E0%B8%A1/%E0%B8%AB%E0%B8%A1%E0%B8%B9%E0%B8%97%E0%B8%AD%E0%B8%94%E0%B8%81%E0%B8%A3%E0%B8%B0%E0%B9%80%E0%B8%97%E0%B8%B5%E0%B8%A2%E0%B8%A1_header.jpg" },
+      { title: "ไก่ทอดน้ำปลา", image: "https://food.mthai.com/app/uploads/2017/07/Chicken-wings-fried-fish-sauce.jpg" },
+      { title: "ตำถั่ว", image: "https://img.wongnai.com/p/1920x0/2017/12/02/e817cea1a86f405895e529ec942eaf80.jpg" },
+      { title: "ลาบเนื้อ", image: "https://i.ytimg.com/vi/_5i_GM1h8Xg/sddefault.jpg" },
+      { title: "เนื้อแดดเดียว", image: "https://img.kapook.com/u/2018/surauch/cooking/co1/dad.jpg" },
+      { title: "ตำหอยแครง", image: "https://img.wongnai.com/p/1920x0/2019/01/22/824101339e1448178b7ff9da9e1d4ff9.jpg" },
+      { title: "แกงเห็ดเผาะ", image: "https://i.ytimg.com/vi/qNUircRyLDA/maxresdefault.jpg" },
+      { title: "ต้มปลาร้า", image: "https://img-global.cpcdn.com/recipes/03a239eda7dff026/680x482cq70/%E0%B8%A3%E0%B8%9B-%E0%B8%AB%E0%B8%A5%E0%B8%81-%E0%B8%82%E0%B8%AD%E0%B8%87-%E0%B8%AA%E0%B8%95%E0%B8%A3-%E0%B8%95%E0%B8%A1%E0%B8%9B%E0%B8%A5%E0%B8%B2%E0%B8%A3%E0%B8%B2%E0%B8%9B%E0%B8%A5%E0%B8%B2%E0%B8%94%E0%B8%81.jpg" },
+      { title: "ลาบไก่", image: "https://i.ytimg.com/vi/lS7U8_uE-n8/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLDW6PjyOvhihLMwyLDD5jTLC3pZDQ" },
+      { title: "แกงขี้เหล็ก", image: "https://www.sgethai.com/wp-content/uploads/2022/07/Image04-8.webp" },
+      { title: "แกงหน่อไม้ใบย่านาง", image: "https://img.kapook.com/u/2022/ratima/cooking6%20bamboo/a1.jpg" },
+      { title: "ป่นเห็ด", image: "https://img-global.cpcdn.com/recipes/d709ab466a4ed39b/1200x630cq70/photo.jpg" }
+    ];
+
+    const container = document.getElementById('cardContainer');
+
+    function renderCards(data) {
+      container.innerHTML = "";
+      data.forEach(food => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <a href="details.html?food=${encodeURIComponent(food.title)}" style="text-decoration: none; color: inherit;">
+            <img src="${food.image}" alt="${food.title}">
+            <div class="card-content">
+              <h3 class="card-title">${food.title}</h3>
+              <p class="card-category">อาหารอีสาน</p>
+            </div>
+          </a>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function filterCards() {
+      const searchInput = document.getElementById('searchInput').value.toLowerCase();
+      const filteredData = foodData.filter(food => food.title.toLowerCase().includes(searchInput));
+      renderCards(filteredData);
+    }
+
+    document.getElementById('searchInput').addEventListener('input', filterCards);
+
+    renderCards(foodData);
+  </script>
+
+</body>
+</html>
