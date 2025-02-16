@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>อาหารอีสานยอดฮิต</title>
+  <style>
+    body { 
+      font-family: 'Kanit', Arial, sans-serif; 
+      margin: 0; 
+    }
+
+    .navbar { 
+      background-color: #fff; 
+      padding: 10px 20px; 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+    }
+
+    .navbar a { 
+      text-decoration: none; 
+      color: #333; 
+      margin: 0 15px; 
+      font-size: 16px;
+    }
+
+    .navbar a:hover { color: #ff6347; }
+    
+    .logo {
+      font-family: 'Kanit', sans-serif;
+      font-size: 24px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .logo .e { color: #ff6347; }
+    .logo .san { color: #000; }
+
+    .hero { 
+      text-align: center; 
+      background-size: cover; 
+      background-position: center; 
+      color: #ff6347; 
+      padding: 20px 20px; 
+      position: relative; 
+    }
+
+    .hero input { 
+      padding: 10px; 
+      font-size: 16px; 
+      width: 80%; 
+      max-width: 300px; 
+      border-radius: 5px; 
+      border: 2px solid #ff6347; 
+      text-align: center;
+      margin-top: 3px; 
+    }
+
+    .container { 
+      padding: 20px; 
+      display: flex; 
+      flex-wrap: wrap; 
+      justify-content: center; 
+      gap: 20px; 
+      max-width: 1200px; 
+      margin: auto;
+    }
+
+    .card { 
+      background-color: #fff; 
+      border-radius: 8px; 
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+      overflow: hidden; 
+      transition: transform 0.2s, box-shadow 0.2s; 
+      width: 250px; 
+      height: 350px; 
+    }
+
+    .card:hover { 
+      transform: translateY(-5px); 
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+    }
+
+    .card img { 
+      width: 100%; 
+      height: 150px; 
+      object-fit: cover; 
+    }
+
+    .card-content { 
+      padding: 15px; 
+      display: flex; 
+      flex-direction: column; 
+      justify-content: space-between;
+      height: 100px;
+    }
+
+    .card-title { font-size: 18px; font-weight: bold; margin: 0 0 10px; }
+
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      z-index: 1;
+      min-width: 160px;
+    }
+
+    .dropdown-content a {
+      color: #333;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #f1f1f1;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div class="navbar">
+    <a href="index.html" class="logo">
+      <span class="e">E</span><span class="san">san</span>
+    </a>
+    <div>
+      <a href="index.html">หน้าแรก</a>
+      <div class="dropdown">
+        <a href="#" class="dropbtn">หมวดหมู่</a>
+        <div class="dropdown-content">
+          <a href="C:\Users\admin\OneDrive\เดสก์ท็อป\esan\somtam.html" onclick="filterByCategory('ส้มตำ')">ส้มตำ</a>
+          <a href="C:\Users\admin\OneDrive\เดสก์ท็อป\esan\lab.html" onclick="filterByCategory('ลาบ น้ำตก ก้อย')">ลาบ น้ำตก ก้อย</a>
+          <a href="gang.html" onclick="filterByCategory('แกง')">แกง</a>
+          <a href="mog.html" onclick="filterByCategory('หมก')">หมก</a>
+          <a href="ping.html" onclick="filterByCategory('ปิ้ง/ย่าง/ทอด')">ปิ้ง/ย่าง/ทอด</a>
+          <a href="pond.html" onclick="filterByCategory('ป่น/แจ่ว')">ป่น/แจ่ว</a>
+          <a href="sain.html" onclick="filterByCategory('เส้น')">เส้น</a>
+          <a href="time.html" onclick="filterByCategory('เครื่องเคียง/ทานเล่น')">เครื่องเคียง/ทานเล่น</a>
+        </div>
+      </div>
+      <a href="pofile.html">ติดต่อเรา</a>
+    </div>
+  </div>
+
+  <div class="hero">
+    <input id="searchInput" type="text" placeholder="ค้นหาเมนูอาหาร">
+  </div>
+
+  <div class="container" id="cardContainer"></div>
+
+  <script>
+    const foodData = [
+      { title: "ส้มตำไทย", category: "ส้มตำ" , image: "https://www.unileverfoodsolutions.co.th/dam/global-ufs/mcos/SEA/calcmenu/recipes/TH-recipes/salads/%E0%B8%AA%E0%B9%89%E0%B8%A1%E0%B8%95%E0%B8%B3%E0%B9%84%E0%B8%97%E0%B8%A2/%E0%B8%AA%E0%B9%89%E0%B8%A1%E0%B8%95%E0%B8%B3%E0%B9%84%E0%B8%97%E0%B8%A2_header.jpg" },
+      { title: "ตำปูปลาร้า", category: "ส้มตำ" , image: "https://img-global.cpcdn.com/recipes/b48302d4bf74eb5a/400x400cq70/photo.jpg" },
+      { title: "ตำแตง", category: "ส้มตำ" , image: "https://img.wongnai.com/p/1920x0/2019/11/26/05f96ba59fa2407e9f28efb6c6d74e7a.jpg" },
+      { title: "ตำซั่ว", category: "ส้มตำ" , image: "https://img.kapook.com/u/2017/surauch/cooking/x1_4.jpg" },
+      { title: "ตำข้าวโพด", category: "ส้มตำ" , image: "https://s359.kapook.com/pagebuilder/e04f9577-4705-43dc-84d6-e3854d153ea9.jpg" },
+      { title: "ตำถั่ว", category: "ส้มตำ" , image: "https://img.wongnai.com/p/1920x0/2017/12/02/e817cea1a86f405895e529ec942eaf80.jpg" },
+      { title: "ตำหอยแครง", category: "ส้มตำ" , image: "https://img.wongnai.com/p/1920x0/2019/01/22/824101339e1448178b7ff9da9e1d4ff9.jpg" },
+    ];
+
+    // Display food cards
+    function displayFoodCards(data) {
+      const container = document.getElementById('cardContainer');
+      container.innerHTML = ''; 
+      data.forEach(food => {
+        const card = document.createElement('div');
+        card.classList.add('card');
+        card.innerHTML = `
+        <a href="details.html?food=${encodeURIComponent(food.title)}" style="text-decoration: none; color: inherit;">
+          <img src="${food.image}" alt="${food.title}">
+          <div class="card-content">
+            <div class="card-title">${food.title}</div>
+            <div class="card-category">${food.category}</div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // Filter by category
+    function filterByCategory(category) {
+      const filteredFoods = foodData.filter(food => food.category === category);
+      displayFoodCards(filteredFoods);
+    }
+
+    // Search functionality
+    document.getElementById('searchInput').addEventListener('input', function(event) {
+      const searchTerm = event.target.value.toLowerCase();
+      const filteredFoods = foodData.filter(food => food.title.toLowerCase().includes(searchTerm));
+      displayFoodCards(filteredFoods);
+    });
+
+    // Initial display of all food items
+    displayFoodCards(foodData);
+  </script>
+</body>
+</html>

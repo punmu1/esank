@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ติดต่อเรา</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Kanit', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            text-align: center;
+        }
+
+        .navbar {
+            background-color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: #333;
+            margin: 0 15px;
+            font-size: 16px;
+        }
+
+        .navbar a:hover { color: #ff6347; }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .logo .e { color: #ff6347; }
+        .logo .san { color: #000; }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+            min-width: 160px;
+            top: 100%;
+            left: 0;
+        }
+
+        .dropdown-content a {
+            color: #333;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .contact-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            padding: 30px;
+        }
+
+        .contact-card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+            width: 300px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .contact-card img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #ff6347;
+        }
+
+        .contact-card h3 {
+            margin: 15px 0 5px;
+            font-size: 20px;
+            color: #333;
+        }
+
+        .contact-card p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .contact-card a {
+            text-decoration: none;
+            color: #ff6347;
+            font-weight: bold;
+        }
+        h1, p {
+            color: #ff6347;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="index.html" class="logo">
+            <span class="e">E</span><span class="san">san</span>
+        </a>
+        <div>
+            <a href="index.html">หน้าแรก</a>
+            <div class="dropdown">
+                <a href="#" class="dropbtn">หมวดหมู่</a>
+                <div class="dropdown-content">
+                    <a href="somtam.html">ส้มตำ</a>
+                    <a href="lab.html">ลาบ น้ำตก ก้อย</a>
+                    <a href="gang.html">แกง</a>
+                    <a href="mog.html">หมก</a>
+                    <a href="ping.html">ปิ้ง/ย่าง/ทอด</a>
+                    <a href="pond.html">ป่น/แจ่ว</a>
+                    <a href="sain.html">เส้น</a>
+                    <a href="time.html">เครื่องเคียง/ทานเล่น</a>
+                </div>
+            </div>
+            <a href="pofile.html">ติดต่อเรา</a>
+        </div>
+    </div>
+
+    <h1>ติดต่อเรา</h1>
+    <p>ผู้จัดทำเว็บไซต์แนะนำสูตรอาหารอีสานยอดฮิต</p>
+    <div class="contact-container">
+        <div class="contact-card">
+            <img src="c:\Users\admin\OneDrive\Pictures\New folder (2)\393783165_831747752036375_3130069619565936534_n.jpg" alt="สมชาย ใจดี">
+            <h3>นาย นฤพนธ์ กรรถธรรม</h3>
+            <p>ชทท.3/1 เลขที่ 14</p>
+            <p>รหัสนักศึกษา 65209010014</p>
+            <p>อีเมล: <a href="">s65209010014@kktech.ac.th</a></p>
+            <p>โทร: <a href="tel:0958840900">095-884-0900</a></p>
+        </div>
+
+        <div class="contact-card">
+            <img src="c:\Users\admin\OneDrive\Pictures\New folder (2)\393813221_866270351538672_6481241750533233540_n.jpg" alt="สมหญิง แสนดี">
+            <h3>นาย ธนวรรษ มะลิลา</h3>
+            <p>ชทท.3/2 เลขที่ 4</p>
+            <p>รหัสนักศึกษา 65209010031</p>
+            <p>อีเมล: <a href="">s65209010031@kktech.ac.th</a></p>
+            <p>โทร: <a href="tel:0917652050">091-765-2050</a></p>
+        </div>
+    </div>
+</body>
+</html>
